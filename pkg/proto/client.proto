@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "../pb;pb";
+
+import "common.proto";
+
+service ClientService {
+  // 执行具体task任务
+  rpc AssignTasks(TaskData) returns (AssignTasksRsp);
+}
+
+message TaskData {
+  int64 id = 1;
+  string task_type = 2; // 项目
+  InitParam init_param = 3; // 初始化参数，主要为数据源、目标数据库以及对应字段映射情况参数
+  string param = 4; // 任务参数，
+  int32 status = 5; // 状态
+}
+
+message InitParam {
+  int64  first_page_num = 1;
+  int64  page_size = 2;
+  int64 page_count = 3;
+  string unique_field_name = 4;
+  string md5_filed_list = 5;
+  string save_filed_list = 6;
+  map<string, string>  filed_alias = 7;
+}
+
+message AssignTasksRsp {
+  CommonResponse common_rsp = 1;
+}
+
+
